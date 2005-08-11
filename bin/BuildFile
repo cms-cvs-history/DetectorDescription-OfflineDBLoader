@@ -1,0 +1,11 @@
+<use name=DetectorDescription/Parser>
+<use name=DetectorDescription/Core>
+<use name=DetectorDescription/OfflineDBLoader>
+<use name=pool>
+<use name=seal>
+<use name=DataSvc>
+<use name=RelationalAccess>
+<use name=Foundation/SealUtil>
+<use name=xerces-c>
+<bin file="dd_xml2db.cpp"> </bin>
+<bin file="dd_readdb.cpp"> </bin>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!-- 
+   This file is for specpars that are not yet in the database in any way
+it should be parsed after the DB is read (in the code).
+-->  
+<Configuration xmlns="." xmlns:xsi="." xsi:schemaLocation= "." name="CMSConfiguration" version="0">
+   <Include>
+      <File name="Tracker/TrackerSensDet/trackersens.xml"   url="."/> 
+      <File name="ECal/ECalSensDet/ecalsens.xml"   url="."/> 
+      <File name="HCal/HCalSensDet/hcalsens.xml"   url="."/> 
+      <File name="Muon/MuonSensDet/muonsens.xml"   url="."/> 
+      <File name="Muon/MuonSensDet/muon_numbering.xml"   url="."/> 
+      <File name="TrackerData/orca_tracker.xml"   url="."/> 
+      <File name="TrackerData/TkMaterial/TkRecoMaterial.xml"   url="."/> 
+      <File name="MuonData/BarrelData/MuBarOrcaFilter.xml"   url="."/> 
+      <File name="MuonData/EndcapData/MuEndOrcaSpec.xml"   url="."/> 
+      <File name="MuonData/EndcapData/MuEndOrcaFilter.xml"   url="."/> 
+      <File name="MuonData/RpcData/MuRpcOrcaSpec.xml"   url="."/> 
+      <File name="MagneticField/MagneticFieldVolumes.xml"   url="."/>
+      <File name="ProductionCuts/tracker.xml"   url="."/>
+      <File name="ProductionCuts/EcalProdCuts.xml"   url="."/>
+      <File name="ProductionCuts/HcalProdCuts.xml"   url="."/>
+      <File name="ProductionCuts/MuonProdCuts.xml"   url="."/>
+      <File name="PropagationInField/FieldParameters.xml"   url="."/>
+      <File name="GeometryUtil/CaloUtil.xml"   url="."/>
+   </Include>
+   <Root fileName="cms.xml" logicalPartName="OCMS"/>
+</Configuration>
+
+
