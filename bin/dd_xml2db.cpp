@@ -91,7 +91,7 @@ int  main( int argc, char** argv )
       cmd.help();
     } else {
     
-      string theSourceConfig;
+      std::string theSourceConfig;
       iter = ops.find("sourceConfig");
       if(iter!=ops.end()){
         theSourceConfig = (*iter).second;

@@ -85,7 +85,7 @@ int  main( int argc, char** argv )
       cmd.help();
     } else {
     
-      string theSpecParConfig;
+      std::string theSpecParConfig;
       iter = ops.find("specParConfig");
       if(iter!=ops.end()){
         theSpecParConfig = (*iter).second;
