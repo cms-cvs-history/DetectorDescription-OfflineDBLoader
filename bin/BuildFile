@@ -1,8 +1,8 @@
 <use name=DetectorDescription/Parser>
 <use name=DetectorDescription/Core>
 <use name=DetectorDescription/OfflineDBLoader>
-<use name=pool>
-<use name=seal>
+
+
 <use name=DataSvc>
 <use name=RelationalAccess>
 <use name=Foundation/SealUtil>
