@@ -9,3 +9,4 @@
 <use name=xerces-c>
 <bin file="dd_xml2db.cpp"> </bin>
 <bin file="dd_readdb.cpp"> </bin>
+<bin file="dd_readOnlineDB.cpp"> </bin>

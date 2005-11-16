@@ -1,0 +1,5 @@
+<?xml version="1.0" ?>
+<connection name="oracle://devdb/cmsintegration">
+  <parameter name="user" value="mcase" />
+  <parameter name="password" value="neneng" />
+</connection>

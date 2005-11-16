@@ -8,12 +8,15 @@
 #include<fstream>
 #include<string>
 
+#include "DetectorDescription/Parser/interface/DDLParser.h"
+#include "DetectorDescription/Parser/interface/DDLConfiguration.h"
+
+#include "DetectorDescription/DBReader/interface/DDRALReader.h"
+
 #include "DetectorDescription/Core/interface/DDName.h"
 #include "DetectorDescription/Core/interface/DDCompactView.h"
 #include "DetectorDescription/Core/interface/DDExpandedView.h"
 
-
-#include "DetectorDescription/OfflineDBLoader/interface/ReadWriteORA.h"
 #include "DetectorDescription/Base/interface/DDException.h"
 
 #include <string>
@@ -29,9 +32,9 @@ int  main( int argc, char** argv )
   std::vector<pool::CommandOptions::Option> ops;
   pool::CommandOptions::Option opt;
   opt.flag = "-s";
-  opt.property = "sourceConfig";
+  opt.property = "specsConfig";
   opt.type = pool::CommandOptions::Option::STRING;
-  opt.helpEntry = "the source XML configuration file name";
+  opt.helpEntry = "the source XML configuration file name for SpecPar files.";
   opt.required = true;
   ops.push_back(opt);
   //   opt.flag = "-p";
@@ -46,30 +49,49 @@ int  main( int argc, char** argv )
   opt.helpEntry = "the connection string";
   opt.required = true;
   ops.push_back(opt);
-  opt.flag = "-n";
-  opt.property = "geometryName";
+
+  // NOT properly implemented.
+  opt.flag = "-v";
+  opt.property = "geometryVersion";
   opt.type = pool::CommandOptions::Option::STRING;
-  opt.helpEntry = "name of IdealGeometry being stored";
+  opt.helpEntry = "version of online geometry being read";
+  opt.required = false;
+  ops.push_back(opt);
+
+  opt.flag = "-a";
+  opt.property = "authentication";
+  opt.type = pool::CommandOptions::Option::STRING;
+  opt.helpEntry = "authentication file needed by POOL for RAL access.";
   opt.required = true;
   ops.push_back(opt);
-  opt.flag = "-u";
-  opt.property = "user";
+
+  opt.flag = "-r";
+  opt.property = "rootNode";
   opt.type = pool::CommandOptions::Option::STRING;
-  opt.helpEntry = "the user name, required for DB servers (e.g. ORACLE)";
-  opt.required = false;
+  opt.helpEntry = "the root node of the DDCompactView you want to traverse";
+  opt.required = true;
   ops.push_back(opt);
-  opt.flag = "-p";
-  opt.property = "password";
-  opt.type = pool::CommandOptions::Option::STRING;
-  opt.helpEntry = "the user password, required for DB servers (e.g. ORACLE)";
-  opt.required = false;
-  ops.push_back(opt);
-  opt.flag = "-t";
-  opt.property = "geometryType";
-  opt.type = pool::CommandOptions::Option::STRING;
-  opt.helpEntry = "the type or table analogue, default: \"IdealGeometry\"";
-  opt.required = false;
-  ops.push_back(opt);
+
+//   opt.flag = "-u";
+//   opt.property = "user";
+//   opt.type = pool::CommandOptions::Option::STRING;
+//   opt.helpEntry = "the user name, required for DB servers (e.g. ORACLE)";
+//   opt.required = false;
+//   ops.push_back(opt);
+
+//   opt.flag = "-p";
+//   opt.property = "password";
+//   opt.type = pool::CommandOptions::Option::STRING;
+//   opt.helpEntry = "the user password, required for DB servers (e.g. ORACLE)";
+//   opt.required = false;
+//   ops.push_back(opt);
+
+//   opt.flag = "-t";
+//   opt.property = "geometryType";
+//   opt.type = pool::CommandOptions::Option::STRING;
+//   opt.helpEntry = "the type or table analogue, default: \"IdealGeometry\"";
+//   opt.required = false;
+//   ops.push_back(opt);
 //   //not used right now.
 //   opt.flag = "-debug";
 //   opt.property = "debug";
@@ -93,10 +115,10 @@ int  main( int argc, char** argv )
       cmd.help();
     } else {
     
-      std::string theSourceConfig;
-      iter = ops.find("sourceConfig");
+      std::string theSpecsConfig;
+      iter = ops.find("specsConfig");
       if(iter!=ops.end()){
-        theSourceConfig = (*iter).second;
+        theSpecsConfig = (*iter).second;
       }      
       //       iter = ops.find("debug");
       //       if(iter!=ops.end()){
@@ -117,57 +139,54 @@ int  main( int argc, char** argv )
       if(iter!=ops.end()){
 	theConnectionString = (*iter).second;
       } 
-      std::string theUserName;
-      iter = ops.find("user");
+      std::string theRootNode;
+      iter = ops.find("rootNode");
       if(iter!=ops.end()){
-	theUserName = (*iter).second;
+	theRootNode = (*iter).second;
       } 
-      std::string thePassword;
-      iter = ops.find("password");
+//       std::string theUserName;
+//       iter = ops.find("user");
+//       if(iter!=ops.end()){
+// 	theUserName = (*iter).second;
+//       } 
+//       std::string thePassword;
+//       iter = ops.find("password");
+//       if(iter!=ops.end()){
+//         thePassword = (*iter).second;
+//       } 
+      std::string theAuthentication;
+      iter = ops.find("authentication");
       if(iter!=ops.end()){
-        thePassword = (*iter).second;
+        theAuthentication = (*iter).second;
       } 
-      std::string theGeometryName;
-      iter = ops.find("geometryName");
+      std::string theGeometryVersion;
+      iter = ops.find("geometryVersion");
       if(iter!=ops.end()){
-        theGeometryName = (*iter).second;
+        theGeometryVersion = (*iter).second;
       } 
-      std::string theGeometryType;
-      iter = ops.find("geometryType");
-      if(iter!=ops.end()){
-        theGeometryType = (*iter).second;
-      } 
+//       std::string theGeometryType;
+//       iter = ops.find("geometryType");
+//       if(iter!=ops.end()){
+//         theGeometryType = (*iter).second;
+//       } 
 
-      //       if(onlyPrint) {
-      //         utility.printSetUpStructure(theDriverFile);
-      //       } else {
-      //         utility.setUpFromExistingData(theDriverFile);
-      // 	std::cout << "DONE!..."<<std::endl;
-      //       }
-
-      seal::ShellEnvironment senv;
-      senv.set( "POOL_AUTH_USER", theUserName );
-      senv.set( "POOL_AUTH_PASSWORD", thePassword );
-      if ( senv.has("DDWriteConnectString") ) {
-	theConnectionString = senv.get("DDWriteConnectString");
-	cout << "Environment variable DDWriteConnectString was used for connection. ";
-      }
-      cout << "Connection String is: "  << theConnectionString << endl;
-      
-      ReadWriteORA rwo( theConnectionString
-			, theSourceConfig
-			, theGeometryName
-			, theGeometryType
-			, theUserName
-			, thePassword );
-      bool result = rwo.readFromXML();
-
+      DDName ddn(theRootNode);
+      cout << "the root node ddname is " << ddn << endl;
+      DDRALReader ddrr( ddn, theAuthentication, theConnectionString );
+      bool result = ddrr.readDB();
       if ( !result ) {
-	cout << "Failed to read XML Geometry sources from configuration.xml" << endl;
+	cout << "Failed to read the Geometry sources from DB using RAL" << endl;
       } else {
-	result = rwo.writeDB();
-	if ( !result ) {
-	  cout << "Failed to write DB." << endl;
+	DDLParser* myP = DDLParser::instance();
+	DDLConfiguration dp;
+	std::cout << "About to read configuration file: " << theSpecsConfig << std::endl; 
+	int success = dp.readConfig(theSpecsConfig);
+	if ( success != 0) {
+	  throw DDException("Failed to read configuration.");
+	}
+	success = myP->parse(dp);
+	if ( success != 0) {
+	  throw DDException("Failed to parse whole geometry!");
 	}
       }
       DDCompactView cpv;
@@ -183,7 +202,8 @@ int  main( int argc, char** argv )
 	dump << id << " - " << epv.geoHistory() << endl;
 	++id;    
       } while(epv.next());
-std::cout << "finished" << std::endl;
+
+      std::cout << "finished" << std::endl;
       return 0;
     }
   } catch (const DDException& de) { 

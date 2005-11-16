@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!-- 
+  The ecal-presh.xml was excluded, because of a current DDD-limitation AND a 
+  G4 bug causing the program ddex.cpp to crash when executing the self-tests ....
+-->  
+<Configuration xmlns="." xmlns:xsi="." xsi:schemaLocation= "." name="CMSConfiguration" version="0">
+   <Include>
+      <File name="Tracker/TrackerSensDet/trackersens.xml"   url="/afs/cern.ch/cms/Releases/Geometry/Geometry_1_18_0/src/"/> 
+      <File name="ECal/ECalSensDet/ecalsens.xml"   url="/afs/cern.ch/cms/Releases/Geometry/Geometry_1_18_0/src/"/> 
+      <File name="HCal/HCalSensDet/hcalsens.xml"   url="/afs/cern.ch/cms/Releases/Geometry/Geometry_1_18_0/src/"/> 
+      <File name="Muon/MuonSensDet/muonsens.xml"   url="/afs/cern.ch/cms/Releases/Geometry/Geometry_1_18_0/src/"/> 
+      <File name="Muon/MuonSensDet/muon_numbering.xml"   url="/afs/cern.ch/cms/Releases/Geometry/Geometry_1_18_0/src/"/> 
+      <File name="TrackerData/orca_tracker.xml"   url="/afs/cern.ch/cms/Releases/ORCA/ORCA_8_10_1/src/Data/" /> 
+      <File name="TrackerData/TkMaterial/TkRecoMaterial.xml"   url="/afs/cern.ch/cms/Releases/ORCA/ORCA_8_10_1/src/Data/"/> 
+      <File name="MuonData/BarrelData/MuBarOrcaFilter.xml"   url="/afs/cern.ch/cms/Releases/ORCA/ORCA_8_10_1/src/Data/"/> 
+      <File name="MuonData/EndcapData/MuEndOrcaSpec.xml"   url="/afs/cern.ch/cms/Releases/ORCA/ORCA_8_10_1/src/Data/"/> 
+      <File name="MuonData/EndcapData/MuEndOrcaFilter.xml"   url="/afs/cern.ch/cms/Releases/ORCA/ORCA_8_10_1/src/Data/"/> 
+      <File name="MuonData/RpcData/MuRpcOrcaSpec.xml"   url="/afs/cern.ch/cms/Releases/ORCA/ORCA_8_10_1/src/Data/"/> 
+   </Include>
+   <Root fileName="cms.xml" logicalPartName="OCMS"/>
+</Configuration>
+
