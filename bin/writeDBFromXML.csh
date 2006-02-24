@@ -6,8 +6,5 @@
 #                 -n ( --geometryName ) : name of Geometry (version) in DB
 #                 -debug ( --debug ) : enable the verbose mode
 #                 -h ( --help ) : display help
-ln -s /afs/cern.ch/cms/Releases/Geometry/Geometry_1_16_1/src/* .
-ln -s /afs/cern.ch/cms/Releases/ORCA/ORCA_8_13_1/src/Data/* .
-ln -s /afs/cern.ch/cms/Releases/OSCAR/OSCAR_3_9_7/src/Data/* .
-dd_xml2db -s ORCAconfiguration.xml -c sqlite_file:IdealGeometry.db -n IdealGeometry01 -t IdealGeometry
+dd_xml2db -s Geometry/CMSCommonData/data/configuration.xml -c sqlite_file:IdealGeometry.db -n IdealGeometry01 -t IdealGeometry
 
