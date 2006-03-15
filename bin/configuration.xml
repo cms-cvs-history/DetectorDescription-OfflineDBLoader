@@ -19,9 +19,9 @@
   <!-- DT filter for reconstruction geometry -->
   <File name="Geometry/DTGeometryBuilder/data/dtSpecsFilter.xml"   url="."/> 
   <!-- CSC data -->
-  <File name="Geometry/CSCSimAlgo/data/cscSpecs.xml"                url="."/>
+  <File name="Geometry/CSCGeometry/data/cscSpecs.xml"                url="."/>
   <!-- CSC filter for reconstruction geometry -->
-  <File name="Geometry/CSCSimAlgo/data/cscSpecsFilter.xml"          url="."/>
+  <File name="Geometry/CSCGeometry/data/cscSpecsFilter.xml"          url="."/>
   <!-- just the MagneticField geometry -->
   <File name="Geometry/CMSCommonData/data/MagneticFieldVolumes.xml" url="."/>
   <!-- this is the one from SimG4 -->
