@@ -1,12 +1,28 @@
-<use name=DetectorDescription/Parser>
-<use name=DetectorDescription/Core>
-<use name=DetectorDescription/OfflineDBLoader>
+
+<environment>
+  <use name=DetectorDescription/Parser>
+  <use name=DetectorDescription/Core>
+  <use name=DetectorDescription/OfflineDBLoader>
+  <use name=GeometryReaders/XMLIdealGeometryESSource>
+  <use name=DataSvc>
+  <use name=RelationalAccess>
+  <use name=Foundation/SealUtil>
+  <use name=FWCore/Framework>
+  <use name=clhep>
+  <use name=CondFormats/DataRecord>
+  <use name=CondFormats/EcalObjects>
+  <use name=CondCore/DBCommon>
+  <use name=CondCore/ESSources>
+  <use name=CondCore/IOVService>
+  <use name=CondCore/MetaDataService>
+  <library file=stubs/GeometryDBLoader.cc name=GeometryDBLoader>
+    <flags SEAL_PLUGIN_NAME="GeometryDBLoader">
+  </library>
+</environment>
 
 
-<use name=DataSvc>
-<use name=RelationalAccess>
-<use name=Foundation/SealUtil>
-<use name=xerces-c>
-<bin file="dd_xml2db.cpp"> </bin>
-<bin file="dd_readdb.cpp"> </bin>
-<bin file="dd_readOnlineDB.cpp"> </bin>
+#<use name=xerces-c>
+#<bin file="dd_xml2db.cpp"> </bin>
+#<bin file="dummy.cpp"> </bin>
+#<bin file="dd_readdb.cpp"> </bin>
+#<bin file="dd_readOnlineDB.cpp"> </bin>
