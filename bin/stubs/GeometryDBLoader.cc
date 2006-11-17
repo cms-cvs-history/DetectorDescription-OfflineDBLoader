@@ -18,6 +18,7 @@
 #include "DetectorDescription/Core/interface/DDCompactView.h"
 #include "DetectorDescription/Core/interface/DDExpandedView.h"
 #include "DetectorDescription/OfflineDBLoader/interface/ReadWriteORA.h"
+#include "DetectorDescription/OfflineDBLoader/interface/GeometryInfoDump.h"
 
 #include <Geometry/Records/interface/IdealGeometryRecord.h>
 
@@ -26,11 +27,6 @@
 #include <fstream>
 #include <string>
 
-#include <cmath>
-#include <iomanip>
-#include <vector>
-#include <map>
-#include <sstream>
 
 class GeometryDBLoader : public edm::EDAnalyzer {
 
@@ -56,6 +52,7 @@ private:
   std::string meta_;
   bool dumpHistory_;
   bool dumpSpecs_;
+  bool dumpPosInfo_;
 };
 
 GeometryDBLoader::GeometryDBLoader( const edm::ParameterSet& iConfig )
@@ -68,6 +65,7 @@ GeometryDBLoader::GeometryDBLoader( const edm::ParameterSet& iConfig )
   meta_=iConfig.getParameter<std::string>("metaName");
   dumpHistory_=iConfig.getUntrackedParameter<bool>("dumpGeoHistory");
   dumpSpecs_=iConfig.getUntrackedParameter<bool>("dumpSpecs");
+  dumpPosInfo_=iConfig.getUntrackedParameter<bool>("dumpPosInfo");
 }
 
 
@@ -87,52 +85,22 @@ void GeometryDBLoader::beginJob( const edm::EventSetup& iSetup ) {
   edm::ESHandle<DDCompactView> pDD;
   iSetup.get<IdealGeometryRecord>().get(label_, pDD );
 
-  try {
-    ::setenv( "POOL_AUTH_USER", user_.c_str(), 1 );
-    ::setenv( "POOL_AUTH_PASSWORD", pass_.c_str(), 1 );
-    std::cout << "Connection String is: "  << conn_ << std::endl;
-   
-    ReadWriteORA rwo( conn_
-		      , meta_
-		      , user_
-		      , pass_ );
-    bool result = rwo.writeDB( *pDD );
-    if ( !result ) {
-      std::cout << "Failed to write DB." << std::endl;
-    }
-    if ( dumpHistory_ ) {
-      const DDCompactView cpv = *pDD;
-      DDExpandedView epv(cpv);
-      typedef DDExpandedView::nav_type nav_type;
-      typedef std::map<nav_type,int> id_type;
-      id_type idMap;
-      int id=0;
-      std::ofstream dump("dumpGeoHistoryOnWrite");
-      do {
-	nav_type pos = epv.navPos();
-	idMap[pos]=id;
-	dump << id << " - " << epv.geoHistory() << std::endl;
-	++id;    
-      } while(epv.next()); 
-    }
-    if ( dumpSpecs_ ) {
-      DDSpecifics::iterator<DDSpecifics> spit(DDSpecifics::begin()), spend(DDSpecifics::end());
-      // ======= For each DDSpecific...
-      std::ofstream dump("dumpSpecsOnWrite");
-      for (; spit != spend; ++spit) {
-	if ( !spit->isDefined().second ) continue;  
-	const DDSpecifics & sp = *spit;
-	dump << sp << std::endl;
-      }
-      dump.close();
-    }
-    std::cout << "finished" << std::endl;
+  ::setenv( "POOL_AUTH_USER", user_.c_str(), 1 );
+  ::setenv( "POOL_AUTH_PASSWORD", pass_.c_str(), 1 );
+  std::cout << "Connection String is: "  << conn_ << std::endl;
+  
+  ReadWriteORA rwo( conn_
+		    , meta_
+		    , user_
+		    , pass_ );
+  bool result = rwo.writeDB( *pDD );
+  if ( !result ) {
+    std::cout << "Failed to write DB." << std::endl;
+  }
+  
+  GeometryInfoDump gidump;
+  gidump.dumpInfo( dumpHistory_, dumpSpecs_, dumpPosInfo_, *pDD );
 
-  } catch (const DDException& de) { 
-    std::cout << "ERROR: " << de.what() << std::endl;
-  } catch (const std::exception& e){
-    std::cout << "ERROR: " << e.what() << std::endl;
-  }  
   std::cout << dashedLine_ << " end" << std::endl;
 }
 
