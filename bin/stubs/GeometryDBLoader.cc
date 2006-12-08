@@ -53,6 +53,7 @@ private:
   bool dumpHistory_;
   bool dumpSpecs_;
   bool dumpPosInfo_;
+  int rotNumSeed_;
 };
 
 GeometryDBLoader::GeometryDBLoader( const edm::ParameterSet& iConfig )
@@ -63,6 +64,7 @@ GeometryDBLoader::GeometryDBLoader( const edm::ParameterSet& iConfig )
   pass_=iConfig.getParameter<std::string>("password");
   conn_=iConfig.getParameter<std::string>("connection");
   meta_=iConfig.getParameter<std::string>("metaName");
+  rotNumSeed_=iConfig.getParameter<int>("rotationNumberingSeed");
   dumpHistory_=iConfig.getUntrackedParameter<bool>("dumpGeoHistory");
   dumpSpecs_=iConfig.getUntrackedParameter<bool>("dumpSpecs");
   dumpPosInfo_=iConfig.getUntrackedParameter<bool>("dumpPosInfo");
@@ -92,7 +94,8 @@ void GeometryDBLoader::beginJob( const edm::EventSetup& iSetup ) {
   ReadWriteORA rwo( conn_
 		    , meta_
 		    , user_
-		    , pass_ );
+		    , pass_ 
+		    , rotNumSeed_);
   bool result = rwo.writeDB( *pDD );
   if ( !result ) {
     std::cout << "Failed to write DB." << std::endl;
