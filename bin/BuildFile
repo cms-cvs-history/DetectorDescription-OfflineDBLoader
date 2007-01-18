@@ -4,13 +4,8 @@
   <use name=DetectorDescription/Core>
   <use name=DetectorDescription/OfflineDBLoader>
   <use name=GeometryReaders/XMLIdealGeometryESSource>
-  <use name=DataSvc>
-  <use name=RelationalAccess>
   <use name=Foundation/SealUtil>
   <use name=FWCore/Framework>
-  <use name=clhep>
-  <use name=CondFormats/DataRecord>
-  <use name=CondFormats/EcalObjects>
   <use name=CondCore/DBCommon>
   <use name=CondCore/ESSources>
   <use name=CondCore/IOVService>

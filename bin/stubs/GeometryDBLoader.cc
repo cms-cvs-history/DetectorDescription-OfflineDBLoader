@@ -21,6 +21,7 @@
 #include "DetectorDescription/OfflineDBLoader/interface/GeometryInfoDump.h"
 
 #include <Geometry/Records/interface/IdealGeometryRecord.h>
+#include <MagneticField/Records/interface/IdealMagneticFieldRecord.h>
 
 #include <iostream>
 #include <istream>
@@ -50,6 +51,7 @@ private:
   std::string pass_;
   std::string conn_;
   std::string meta_;
+  std::string recType_;
   bool dumpHistory_;
   bool dumpSpecs_;
   bool dumpPosInfo_;
@@ -64,6 +66,7 @@ GeometryDBLoader::GeometryDBLoader( const edm::ParameterSet& iConfig )
   pass_=iConfig.getParameter<std::string>("password");
   conn_=iConfig.getParameter<std::string>("connection");
   meta_=iConfig.getParameter<std::string>("metaName");
+  recType_=iConfig.getParameter<std::string>("recType");
   rotNumSeed_=iConfig.getParameter<int>("rotationNumberingSeed");
   dumpHistory_=iConfig.getUntrackedParameter<bool>("dumpGeoHistory");
   dumpSpecs_=iConfig.getUntrackedParameter<bool>("dumpSpecs");
@@ -85,7 +88,12 @@ void GeometryDBLoader::beginJob( const edm::EventSetup& iSetup ) {
   std::cout << "start " << dashedLine_ << std::endl;
 
   edm::ESHandle<DDCompactView> pDD;
-  iSetup.get<IdealGeometryRecord>().get(label_, pDD );
+
+  if ( recType_ == "geometry" ) {
+    iSetup.get<IdealGeometryRecord>().get( label_, pDD );
+  } else if ( recType_ == "magfield" ) {
+    iSetup.get<IdealMagneticFieldRecord>().get(recType_, pDD );
+  }
 
   ::setenv( "POOL_AUTH_USER", user_.c_str(), 1 );
   ::setenv( "POOL_AUTH_PASSWORD", pass_.c_str(), 1 );
