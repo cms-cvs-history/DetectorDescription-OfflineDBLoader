@@ -15,9 +15,19 @@
   </library>
 </environment>
 
-
-#<use name=xerces-c>
-#<bin file="dd_xml2db.cpp"> </bin>
-#<bin file="dummy.cpp"> </bin>
-#<bin file="dd_readdb.cpp"> </bin>
-#<bin file="dd_readOnlineDB.cpp"> </bin>
+<environment>
+  <use name=DetectorDescription/PersistentDDDObjects>
+  <use name=DetectorDescription/Parser>
+  <use name=DetectorDescription/Core>
+  <use name=CondFormats/IdealGeometryObjects>
+  <use name=GeometryReaders/XMLIdealGeometryESSource>
+  <use name=DataSvc>
+  <use name=RelationalAccess>
+  <use name=Foundation/SealUtil>
+  <use name=FWCore/Framework>
+  <use name=clhep>
+  <use name=CondCore/DBOutputService>
+  <library file=stubs/WriteOneGeometryFromXML.cc name=WriteOneGeometryFromXML>
+    <flags SEAL_PLUGIN_NAME="WriteOneGeometryFromXML">
+  </library>
+</environment>
