@@ -11,7 +11,7 @@
   <use name=CondCore/IOVService>
   <use name=CondCore/MetaDataService>
   <library file=stubs/GeometryDBLoader.cc name=GeometryDBLoader>
-    <flags SEAL_PLUGIN_NAME="GeometryDBLoader">
+    <flags EDM_PLUGIN=1>
   </library>
 </environment>
 
@@ -28,6 +28,6 @@
   <use name=clhep>
   <use name=CondCore/DBOutputService>
   <library file=stubs/WriteOneGeometryFromXML.cc name=WriteOneGeometryFromXML>
-    <flags SEAL_PLUGIN_NAME="WriteOneGeometryFromXML">
+    <flags EDM_PLUGIN=1>
   </library>
 </environment>
