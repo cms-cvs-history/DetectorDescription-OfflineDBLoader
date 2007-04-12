@@ -253,8 +253,10 @@ es_source = XMLIdealGeometryESSource
                 "Geometry/EcalSimData/data/EcalProdCuts.xml",
                 "Geometry/TrackerSimData/data/trackerProdCuts.xml",
                 "Geometry/TrackerSimData/data/trackerProdCutsBEAM.xml",
-                "Geometry/MuonSimData/data/muonProdCuts.xml"
-
+                "Geometry/MuonSimData/data/muonProdCuts.xml",
+#THIS SHOUL BE REMOVED!  move to Parameter set, not geometry related!
+                # Needed for magnetic field simulation.
+                "Geometry/CMSCommonData/data/FieldParameters.xml"
    }
    string rootNodeName = "cms:OCMS"
 }
