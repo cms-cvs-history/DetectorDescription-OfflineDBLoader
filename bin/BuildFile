@@ -3,13 +3,14 @@
   <use name=DetectorDescription/Parser>
   <use name=DetectorDescription/Core>
   <use name=DetectorDescription/OfflineDBLoader>
-  <use name=GeometryReaders/XMLIdealGeometryESSource>
+#  <use name=GeometryReaders/XMLIdealGeometryESSource>
   <use name=Foundation/SealUtil>
   <use name=FWCore/Framework>
   <use name=CondCore/DBCommon>
-  <use name=CondCore/ESSources>
-  <use name=CondCore/IOVService>
-  <use name=CondCore/MetaDataService>
+  <use name=CondCore/IdealGeometryPlugins>
+#  <use name=CondCore/ESSources>
+#  <use name=CondCore/IOVService>
+#  <use name=CondCore/MetaDataService>
   <library file=stubs/GeometryDBLoader.cc name=GeometryDBLoader>
     <flags EDM_PLUGIN=1>
   </library>
@@ -20,7 +21,8 @@
   <use name=DetectorDescription/Parser>
   <use name=DetectorDescription/Core>
   <use name=CondFormats/IdealGeometryObjects>
-  <use name=GeometryReaders/XMLIdealGeometryESSource>
+#  <use name=GeometryReaders/XMLIdealGeometryESSource>
+  <use name=CondCore/IdealGeometryPlugins>
   <use name=DataSvc>
   <use name=RelationalAccess>
   <use name=Foundation/SealUtil>
