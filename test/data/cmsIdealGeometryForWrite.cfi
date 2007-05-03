@@ -133,12 +133,15 @@ es_source = XMLIdealGeometryESSource
                 "Geometry/TrackerCommonData/data/tecmaterial.xml",
                 "Geometry/TrackerCommonData/data/tecmodpar.xml",
                 "Geometry/TrackerCommonData/data/tecmodule0.xml",
+                "Geometry/TrackerCommonData/data/tecmodule0r.xml",
                 "Geometry/TrackerCommonData/data/tecmodule0s.xml",
                 "Geometry/TrackerCommonData/data/tecmodule1.xml",
+		"Geometry/TrackerCommonData/data/tecmodule1r.xml",
                 "Geometry/TrackerCommonData/data/tecmodule1s.xml",
                 "Geometry/TrackerCommonData/data/tecmodule2.xml",
                 "Geometry/TrackerCommonData/data/tecmodule3.xml",
                 "Geometry/TrackerCommonData/data/tecmodule4.xml",
+                "Geometry/TrackerCommonData/data/tecmodule4r.xml",
                 "Geometry/TrackerCommonData/data/tecmodule4s.xml",
                 "Geometry/TrackerCommonData/data/tecmodule5.xml",
                 "Geometry/TrackerCommonData/data/tecmodule6.xml",
@@ -254,9 +257,10 @@ es_source = XMLIdealGeometryESSource
                 "Geometry/TrackerSimData/data/trackerProdCuts.xml",
                 "Geometry/TrackerSimData/data/trackerProdCutsBEAM.xml",
                 "Geometry/MuonSimData/data/muonProdCuts.xml",
-#THIS SHOUL BE REMOVED!  move to Parameter set, not geometry related!
+
                 # Needed for magnetic field simulation.
                 "Geometry/CMSCommonData/data/FieldParameters.xml"
+
    }
    string rootNodeName = "cms:OCMS"
 }
