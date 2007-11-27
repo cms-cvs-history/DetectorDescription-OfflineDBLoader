@@ -1,10 +1,11 @@
-< name="WriteOneGeometryFromXML" file="stubs/WriteOneGeometryFromXML.cc">
- <use name=CondCore/DBOutputService>
+<environment> <use name=CondCore/DBOutputService>
  <use name=DetectorDescription/Core>
  <use name=DetectorDescription/PersistentDDDObjects>
  <use name=FWCore/Framework>
  <use name=FWCore/ParameterSet>
  <use name=FWCore/ServiceRegistry>
  <use name=Geometry/Records>
- <flags EDM_PLUGIN=1>
-</>
+ <library name="WriteOneGeometryFromXML" file="stubs/WriteOneGeometryFromXML.cc">
+  <flags EDM_PLUGIN=1>
+ </library>
+</environment>
