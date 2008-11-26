@@ -1,23 +1,21 @@
-<environment>
- <use name=CondCore/DBOutputService>
- <use name=DetectorDescription/Core>
- <use name=DetectorDescription/PersistentDDDObjects>
- <use name=FWCore/ParameterSet>
- <use name=FWCore/ServiceRegistry>
- <use name=Geometry/Records>
- <library name="WriteOneGeometryFromXML" file="stubs/WriteOneGeometryFromXML.cc">
+<library name="WriteOneGeometryFromXML" file="stubs/WriteOneGeometryFromXML.cc">
   <flags EDM_PLUGIN=1>
- </library>
-</environment>
-<environment>
- <use name=CondCore/DBOutputService>
- <use name=DetectorDescription/Core>
- <use name=DetectorDescription/OfflineDBLoader>
- <use name=boost>
- <use name=FWCore/ParameterSet>
- <use name=FWCore/ServiceRegistry>
- <use name=Geometry/Records>
- <library name="OutputDDToDDL" file="stubs/OutputDDToDDL.cc">
+  <use name=CondCore/DBOutputService>
+  <use name=DetectorDescription/Core>
+  <use name=DetectorDescription/PersistentDDDObjects>
+  <use name=FWCore/ParameterSet>
+  <use name=FWCore/ServiceRegistry>
+  <use name=Geometry/Records>
+</library>
+
+<library name="OutputDDToDDL" file="stubs/OutputDDToDDL.cc">
   <flags EDM_PLUGIN=1>
- </library>
-</environment>
+  <use name=CondCore/DBOutputService>
+  <use name=DetectorDescription/Core>
+  <use name=DetectorDescription/OfflineDBLoader>
+  <use name=boost>
+  <use name=FWCore/ParameterSet>
+  <use name=FWCore/ServiceRegistry>
+  <use name=Geometry/Records>
+</library>
+
