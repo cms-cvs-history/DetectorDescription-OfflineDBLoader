@@ -1,13 +1,3 @@
-<library name="WriteOneGeometryFromXML" file="stubs/WriteOneGeometryFromXML.cc">
-  <flags EDM_PLUGIN=1>
-  <use name=CondCore/DBOutputService>
-  <use name=DetectorDescription/Core>
-  <use name=DetectorDescription/PersistentDDDObjects>
-  <use name=FWCore/ParameterSet>
-  <use name=FWCore/ServiceRegistry>
-  <use name=Geometry/Records>
-</library>
-
 <library name="OutputDDToDDL" file="stubs/OutputDDToDDL.cc">
   <flags EDM_PLUGIN=1>
   <use name=CondCore/DBOutputService>
