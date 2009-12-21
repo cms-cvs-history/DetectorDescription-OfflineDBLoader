@@ -59,7 +59,7 @@ OutputDDToDDL::~OutputDDToDDL()
 }
 
 void
-OutputDDToDDL::beginRun( edm::EventSetup const& es) 
+OutputDDToDDL::beginRun( const edm::Run&, edm::EventSetup const& es) 
 {
   std::cout<<"OutputDDToDDL::beginRun"<<std::endl;
 

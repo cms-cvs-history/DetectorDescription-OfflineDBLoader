@@ -33,7 +33,7 @@ WriteOneGeometryFromXML::~WriteOneGeometryFromXML()
 }
 
 void
-WriteOneGeometryFromXML::beginRun( edm::EventSetup const& es) 
+WriteOneGeometryFromXML::beginRun( const edm::Run&, edm::EventSetup const& es) 
 {
   std::cout<<"WriteOneGeometryFromXML::beginRun"<<std::endl;
   PIdealGeometry* pgeom = new PIdealGeometry;
@@ -49,7 +49,9 @@ WriteOneGeometryFromXML::beginRun( edm::EventSetup const& es)
   edm::ESHandle<DDCompactView> pDD;
 
   es.get<IdealGeometryRecord>().get(label_, pDD );
-
+  if (pDD.isValid()) 
+    std::cout << "DD is Valid" << std::endl;
+  
   DDCompactView::DDCompactView::graph_type gra = pDD->graph();
 
   DDDToPersFactory dddFact;    
